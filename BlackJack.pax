@@ -1,0 +1,123 @@
+| package |
+package := Package name: 'BlackJack'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #Carta;
+	add: #CpuArriesgado;
+	add: #CpuPrudente;
+	add: #CrearJugadorShell;
+	add: #Estrategia;
+	add: #Humano;
+	add: #IniciarJuegoShell;
+	add: #Jugador;
+	add: #MazoFactory;
+	add: #NoDisponible;
+	add: #NuevaPartidaShell;
+	add: #Partida;
+	add: #PartidaBuilder;
+	add: #PartidaShell;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'Core\Object Arts\Dolphin\Base\Dolphin';
+	add: 'Core\Object Arts\Dolphin\MVP\Presenters\Choice\Dolphin Choice Presenter';
+	add: 'Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
+	add: 'Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: 'Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: 'Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: 'Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: 'Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: 'Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Model subclass: #Carta
+	instanceVariableNames: 'palo valor imagen'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Model subclass: #Estrategia
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Model subclass: #Jugador
+	instanceVariableNames: 'nombre estrategia cartas partidasGanadas puntos imagen'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Model subclass: #MazoFactory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Model subclass: #Partida
+	instanceVariableNames: 'jugadores banca cartas'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Model subclass: #PartidaBuilder
+	instanceVariableNames: 'jugadores cartas'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Estrategia subclass: #CpuArriesgado
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Estrategia subclass: #CpuPrudente
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Estrategia subclass: #Humano
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Estrategia subclass: #NoDisponible
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #CrearJugadorShell
+	instanceVariableNames: 'jugador'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #IniciarJuegoShell
+	instanceVariableNames: 'builder'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #NuevaPartidaShell
+	instanceVariableNames: 'cantJugadoresPresenter cantJugadores'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #PartidaShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+
