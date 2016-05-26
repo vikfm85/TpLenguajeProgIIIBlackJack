@@ -21,3 +21,5 @@ github-*.zip
 #Dolphin Smalltalk
 *.pac
 *.sml
+*.errors
+*.img7
