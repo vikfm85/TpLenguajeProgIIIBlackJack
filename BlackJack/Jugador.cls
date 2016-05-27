@@ -26,6 +26,10 @@ cartas
 cartas: anObject
 	cartas := anObject!
 
+empatar
+	self estado = 'empatar'.
+	!
+
 entregarCarta: unaCarta
 	self estrategia entregarCarta: unaCarta!
 
@@ -42,7 +46,8 @@ estrategia: anObject
 	estrategia := anObject!
 
 ganar
-	self estado = 'ganar'!
+	self estado = 'ganar'.
+	puntos := puntos + 400.!
 
 imagen
 	^imagen!
@@ -72,7 +77,8 @@ partidasGanadas: anObject
 	partidasGanadas := anObject!
 
 perder
-	self estado = 'perdio'!
+	self estado = 'perdio'.
+	puntos := puntos - 200.!
 
 plantarse
 	self estado: 'plantado'.!
@@ -95,6 +101,7 @@ tomarCartas: unaCantidad de: unaColeccionDeCartas
 !Jugador categoriesFor: #calcularPuntaje!public! !
 !Jugador categoriesFor: #cartas!accessing!public! !
 !Jugador categoriesFor: #cartas:!accessing!public! !
+!Jugador categoriesFor: #empatar!accessing!public! !
 !Jugador categoriesFor: #entregarCarta:!public! !
 !Jugador categoriesFor: #estado!accessing!private! !
 !Jugador categoriesFor: #estado:!accessing!private! !

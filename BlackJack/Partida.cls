@@ -39,8 +39,15 @@ guardarPartida!
 
 iniciarPartida
 	| jugadoresEnJuego |
+	self jugadores do: 
+			[:unJugador | 
+			unJugador partidasGanadas = 5 
+				ifTrue: [MessageBox notify: 'El jugador' , unJugador nombre , 'ha gananado la partida']].
+	self jugadores 
+		do: [:unJugador | unJugador puntos = 0 ifTrue: [unJugador estrategia: NoDisponible new]].
+	self randomFrom: self cartas.
 	self repartir.
-	self jugadores
+	self jugadores 
 		do: [:unJugador | [unJugador estado = 'jugando'] whileTrue: [unJugador jugarCon: self]].
 	self banca jugarCon: self.
 	self obtenerGanadorSegun: self dificultad!
@@ -65,21 +72,29 @@ mezclar: unaColeccionDeCartas
 			unaColeccionDeCartas remove: unaCarta].
 	^nuevaColeccion!
 
-obtenerGanadorSegun: unaDificultad
-	unaDificultad = 'facil'
+obtenerGanadorSegun: unaDificultad 
+	unaDificultad = 'facil' 
 		ifTrue: 
 			[self jugadores do: 
-					[:unJugador |
-					unJugador calcularPuntaje >= self banca calcularPuntaje
+					[:unJugador | 
+					unJugador calcularPuntaje >= self banca calcularPuntaje 
 						ifTrue: [unJugador ganar]
 						ifFalse: [unJugador perder]]].
-	unaDificultad = 'dificil'
+	unaDificultad = 'normal' 
 		ifTrue: 
 			[self jugadores do: 
-					[:unJugador |
-					unJugador calcularPuntaje > self banca calcularPuntaje
+					[:unJugador | 
+					unJugador calcularPuntaje > self banca calcularPuntaje 
 						ifTrue: [unJugador ganar]
-						ifFalse: [unJugador perder]]]!
+						ifFalse: 
+							[unJugador calcularPuntaje = self banca calcularPuntaje 
+								ifTrue: [unJugador empatar]
+								ifFalse: [unJugador perder]]]]!
+
+randomFrom: anOrderedCollection 
+	| index |
+	index := (self random next * anOrderedCollection size) truncated + 1.
+	^anOrderedCollection at: index!
 
 repartir
 	
@@ -103,5 +118,6 @@ repartir
 !Partida categoriesFor: #jugadores:!accessing!public! !
 !Partida categoriesFor: #mezclar:!public! !
 !Partida categoriesFor: #obtenerGanadorSegun:!public! !
+!Partida categoriesFor: #randomFrom:!public! !
 !Partida categoriesFor: #repartir!public! !
 
