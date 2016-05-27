@@ -43,8 +43,12 @@ iniciarPartida
 			[:unJugador | 
 			unJugador partidasGanadas = 5 
 				ifTrue: [MessageBox notify: 'El jugador' , unJugador nombre , 'ha gananado la partida']].
-	self jugadores 
-		do: [:unJugador | unJugador puntos = 0 ifTrue: [unJugador estrategia: NoDisponible new]].
+	self jugadores do: 
+			[:unJugador | 
+			unJugador puntos = 0 
+				ifTrue: 
+					[unJugador estrategia: NoDisponible new.
+					MessageBox notify: 'Perdiste la partida!!!!!!']].
 	self randomFrom: self cartas.
 	self repartir.
 	self jugadores 
