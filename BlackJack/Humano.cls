@@ -10,13 +10,15 @@ Humano comment: ''!
 !Humano categoriesForClass!MVP-Models! !
 !Humano methodsFor!
 
-jugar: unaPartida
-!
+jugar: unJugador
+	| puntajeJugador |
+	puntajeJugador := unJugador calcularPuntaje.
+	puntajeJugador = 21
+		ifTrue: [unJugador ganar]
+		ifFalse: [puntajeJugador > 21 ifTrue: [unJugador perder]]!
 
-pedir: unaCarta!
-
-plantarse: unaPartida! !
+plantarse: unJugador
+	unJugador plantarse! !
 !Humano categoriesFor: #jugar:!public! !
-!Humano categoriesFor: #pedir:!public! !
 !Humano categoriesFor: #plantarse:!public! !
 

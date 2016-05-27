@@ -10,13 +10,21 @@ CpuPrudente comment: ''!
 !CpuPrudente categoriesForClass!MVP-Models! !
 !CpuPrudente methodsFor!
 
-jugar: unaPartida!
-
-pedir: unaCarta!
-
-plantarse: unaPartida
-! !
-!CpuPrudente categoriesFor: #jugar:!public! !
-!CpuPrudente categoriesFor: #pedir:!public! !
-!CpuPrudente categoriesFor: #plantarse:!public! !
+jugar: unJugador con: unaPartida
+	| puntajeJugador |
+	puntajeJugador := unJugador calcularPuntaje.
+	puntajeJugador = 21
+		ifTrue: [unJugador ganar]
+		ifFalse: 
+			[puntajeJugador > 21
+				ifTrue: [unJugador perder]
+				ifFalse: 
+					[puntajeJugador < 14
+						ifTrue: [self pedirUnaCartaA: unaPartida para: unJugador]
+						ifFalse: 
+							[| r |
+							r := Random new.
+							r seed: Random systemClockSeed.
+							r next > 0.5 ifTrue: [self pedirUnaCartaA: unaPartida para: unJugador]]]]! !
+!CpuPrudente categoriesFor: #jugar:con:!public! !
 

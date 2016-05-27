@@ -1,25 +1,21 @@
 | package |
-package := Package name: 'BlackJack'.
+package := Package name: 'Blackjack Model'.
 package paxVersion: 1;
 	basicComment: ''.
 
 
 package classNames
+	add: #Banca;
 	add: #Carta;
 	add: #CpuArriesgado;
 	add: #CpuPrudente;
-	add: #CreatePlayerDialog;
 	add: #Estrategia;
 	add: #Humano;
-	add: #IniciarJuegoShell;
 	add: #Jugador;
 	add: #MazoFactory;
 	add: #NoDisponible;
 	add: #Partida;
 	add: #PartidaBuilder;
-	add: #PartidaShell;
-	add: #PlayerPresenter;
-	add: #TextDialog;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -30,15 +26,6 @@ package globalAliases: (Set new
 
 package setPrerequisites: (IdentitySet new
 	add: '..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\Choice\Dolphin Choice Presenter';
-	add: '..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
-	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
-	add: '..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
-	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
-	add: '..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
-	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
-	add: '..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
-	add: '..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
 	add: '..\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
 	yourself).
 
@@ -57,7 +44,7 @@ Model subclass: #Estrategia
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Model subclass: #Jugador
-	instanceVariableNames: 'nombre estrategia cartas partidasGanadas puntos imagen'
+	instanceVariableNames: 'nombre estrategia cartas partidasGanadas puntos imagen estado'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -67,12 +54,17 @@ Model subclass: #MazoFactory
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Model subclass: #Partida
-	instanceVariableNames: 'jugadores banca cartas'
+	instanceVariableNames: 'jugadores banca cartas dificultad'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Model subclass: #PartidaBuilder
 	instanceVariableNames: 'jugadores cartas'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Estrategia subclass: #Banca
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -93,31 +85,6 @@ Estrategia subclass: #Humano
 	classInstanceVariableNames: ''!
 Estrategia subclass: #NoDisponible
 	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Presenter subclass: #PlayerPresenter
-	instanceVariableNames: 'numeroJugador nombreJugador imagenJugador estadoJugador'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Shell subclass: #IniciarJuegoShell
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Shell subclass: #PartidaShell
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Dialog subclass: #CreatePlayerDialog
-	instanceVariableNames: 'nombreJugador imagenJugador rutaImagenJugador estrategia'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Dialog subclass: #TextDialog
-	instanceVariableNames: 'choice text'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

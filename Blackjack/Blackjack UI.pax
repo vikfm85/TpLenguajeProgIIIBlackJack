@@ -1,0 +1,78 @@
+| package |
+package := Package name: 'Blackjack UI'.
+package paxVersion: 1;
+	basicComment: 'Blackjack 0.00.0001-alpha
+
+Para iniciar ejecutar ctrl+e la linea de abajo
+NewGameShell show.
+
+TODO:
+'.
+
+
+package classNames
+	add: #CreatePlayerDialog;
+	add: #GameShell;
+	add: #NewGameShell;
+	add: #PlayerPresenter;
+	add: #TextDialog;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: (IdentitySet new
+	add: 'Blackjack Model';
+	add: '..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\Choice\Dolphin Choice Presenter';
+	add: '..\Core\Object Arts\Dolphin\MVP\Dialogs\Common\Dolphin Common Dialogs';
+	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter';
+	add: '..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models';
+	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter';
+	add: '..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base';
+	add: '..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter';
+	add: '..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters';
+	add: '..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models';
+	add: '..\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
+	yourself).
+
+package!
+
+"Class Definitions"!
+
+Presenter subclass: #PlayerPresenter
+	instanceVariableNames: 'nombreJugador imagenJugador estadoJugador cartasPresenter puntosPresenter partidasGanadasPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #GameShell
+	instanceVariableNames: 'bancaPresenter jugadoresPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Shell subclass: #NewGameShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dialog subclass: #CreatePlayerDialog
+	instanceVariableNames: 'nombreJugador imagenJugador rutaImagenJugador estrategia'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dialog subclass: #TextDialog
+	instanceVariableNames: 'choice text'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+
