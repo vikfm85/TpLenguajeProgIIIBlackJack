@@ -25,8 +25,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
+	add: '..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
 	yourself).
 
 package!
@@ -34,7 +34,7 @@ package!
 "Class Definitions"!
 
 Model subclass: #Carta
-	instanceVariableNames: 'palo nombre valor imagen'
+	instanceVariableNames: 'palo nombre valor imagen imagenVuelta'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -59,7 +59,7 @@ Model subclass: #Partida
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Model subclass: #PartidaBuilder
-	instanceVariableNames: 'jugadores cartas'
+	instanceVariableNames: 'jugadores cartas random dificultad'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

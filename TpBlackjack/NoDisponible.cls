@@ -10,14 +10,9 @@ NoDisponible comment: ''!
 !NoDisponible categoriesForClass!MVP-Models! !
 !NoDisponible methodsFor!
 
-jugar: unaPartida!
+jugar: unJugador con: unaPartida
+	"No juega :)"
 
-pedirUnaCartaA: unaPartida para: unJugador
-	!
-
-tomarCartas: unaCantidad de: unaColeccionDeCartas paraUnJugador: unJugador
 	! !
-!NoDisponible categoriesFor: #jugar:!public! !
-!NoDisponible categoriesFor: #pedirUnaCartaA:para:!public! !
-!NoDisponible categoriesFor: #tomarCartas:de:paraUnJugador:!public! !
+!NoDisponible categoriesFor: #jugar:con:!public! !
 

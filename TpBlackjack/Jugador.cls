@@ -14,10 +14,10 @@ agregarCarta: unaCarta
 	self cartas add: unaCarta!
 
 calcularPuntaje
-	| total |
+	| total as |
 	total := self cartas inject: 0 into: [:sum :unaCarta | sum + unaCarta valor].
-	(total > 22 and: [self cartas detect: [:unaCarta | unaCarta valor = 1] ifNone: [false]])
-		ifTrue: [total := total - 10].
+	as := self cartas detect: [:unaCarta | unaCarta valor = 1] ifNone: [nil].
+	(total > 22 and: [as isNil]) ifTrue: [total := total - 10].
 	^total!
 
 cartas
@@ -103,8 +103,8 @@ tomarCartas: unaCantidad de: unaColeccionDeCartas
 !Jugador categoriesFor: #cartas:!accessing!public! !
 !Jugador categoriesFor: #empatar!accessing!public! !
 !Jugador categoriesFor: #entregarCarta:!public! !
-!Jugador categoriesFor: #estado!accessing!private! !
-!Jugador categoriesFor: #estado:!accessing!private! !
+!Jugador categoriesFor: #estado!accessing!public! !
+!Jugador categoriesFor: #estado:!accessing!public! !
 !Jugador categoriesFor: #estrategia!accessing!public! !
 !Jugador categoriesFor: #estrategia:!accessing!public! !
 !Jugador categoriesFor: #ganar!accessing!public! !
@@ -133,7 +133,8 @@ newBanca
 	banca cartas: OrderedCollection new.
 	banca partidasGanadas: 0.
 	banca puntos: -1.
-	banca imagen: nil.
+	banca
+		imagen: (OLEPicture fromFile: ImageRelativeFileLocator current basePath , 'Recursos\blackjack.jpg').
 	^banca! !
 !Jugador class categoriesFor: #newBanca!public! !
 

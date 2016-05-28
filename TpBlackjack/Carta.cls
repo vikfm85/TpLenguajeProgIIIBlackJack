@@ -1,7 +1,7 @@
 "Filed out from Dolphin Smalltalk 7"!
 
 Model subclass: #Carta
-	instanceVariableNames: 'palo nombre valor imagen'
+	instanceVariableNames: 'palo nombre valor imagen imagenVuelta'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -15,6 +15,12 @@ imagen
 
 imagen: anObject
 	imagen := anObject!
+
+imagenVuelta
+	^imagenVuelta!
+
+imagenVuelta: anObject
+	imagenVuelta := anObject!
 
 nombre
 	^nombre!
@@ -35,6 +41,8 @@ valor: anObject
 	valor := anObject! !
 !Carta categoriesFor: #imagen!accessing!public! !
 !Carta categoriesFor: #imagen:!accessing!public! !
+!Carta categoriesFor: #imagenVuelta!accessing!public! !
+!Carta categoriesFor: #imagenVuelta:!accessing!public! !
 !Carta categoriesFor: #nombre!accessing!public! !
 !Carta categoriesFor: #nombre:!accessing!public! !
 !Carta categoriesFor: #palo!accessing!public! !
@@ -51,8 +59,10 @@ new: unNombre valor: unValor palo: unPalo
 	carta valor: unValor.
 	carta palo: unPalo.
 	carta imagen: (OLEPicture
-				fromFile: ImageRelativeFileLocator current basePath , '\Recursos\' , unPalo , '\'
+				fromFile: ImageRelativeFileLocator current basePath , 'Recursos\Cartas\' , unPalo , '\'
 						, unNombre displayString , '.jpg').
+	carta imagenVuelta: (OLEPicture
+				fromFile: ImageRelativeFileLocator current basePath , 'Recursos\Cartas\back.jpg').
 	^carta! !
 !Carta class categoriesFor: #new:valor:palo:!public! !
 

@@ -17,8 +17,16 @@ jugar: unJugador
 		ifTrue: [unJugador ganar]
 		ifFalse: [puntajeJugador > 21 ifTrue: [unJugador perder]]!
 
+jugar: unJugador con: unaPartida
+	| puntajeJugador |
+	puntajeJugador := unJugador calcularPuntaje.
+	puntajeJugador = 21
+		ifTrue: [unJugador ganar]
+		ifFalse: [puntajeJugador > 21 ifTrue: [unJugador perder]]!
+
 plantarse: unJugador
 	unJugador plantarse! !
 !Humano categoriesFor: #jugar:!public! !
+!Humano categoriesFor: #jugar:con:!public! !
 !Humano categoriesFor: #plantarse:!public! !
 

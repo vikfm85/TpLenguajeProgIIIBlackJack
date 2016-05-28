@@ -10,22 +10,18 @@ Estrategia comment: ''!
 !Estrategia categoriesForClass!MVP-Models! !
 !Estrategia methodsFor!
 
-entregarCarta: unaCarta
-	self cartas add: unaCarta!
-
-jugar: unaPartida
-	self partida: unaPartida!
+jugar: unJugador con: unaPartida
+	#subclassResponsibility!
 
 pedirUnaCartaA: unaPartida para: unJugador
 	unaPartida entregarCartas: 1 a: unJugador.
-	self jugar: unJugador!
+	self jugar: unJugador con: unaPartida!
 
 tomarCartas: unaCantidad de: unaColeccionDeCartas paraUnJugador: unJugador
 	unaCantidad timesRepeat: 
 			[unJugador agregarCarta: unaColeccionDeCartas first.
 			unaColeccionDeCartas removeFirst]! !
-!Estrategia categoriesFor: #entregarCarta:!public! !
-!Estrategia categoriesFor: #jugar:!public! !
+!Estrategia categoriesFor: #jugar:con:!public! !
 !Estrategia categoriesFor: #pedirUnaCartaA:para:!public! !
 !Estrategia categoriesFor: #tomarCartas:de:paraUnJugador:!public! !
 
