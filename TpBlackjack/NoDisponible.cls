@@ -13,6 +13,14 @@ NoDisponible comment: ''!
 jugar: unJugador con: unaPartida
 	"No juega :)"
 
+	!
+
+pedirUnaCartaA: unaPartida para: unJugador
+	!
+
+tomarCartas: unaCantidad de: unaColeccionDeCartas paraUnJugador: unJugador
 	! !
 !NoDisponible categoriesFor: #jugar:con:!public! !
+!NoDisponible categoriesFor: #pedirUnaCartaA:para:!public! !
+!NoDisponible categoriesFor: #tomarCartas:de:paraUnJugador:!public! !
 
