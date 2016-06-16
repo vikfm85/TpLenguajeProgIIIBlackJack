@@ -47,6 +47,26 @@ createComponents
 	bancaPresenter := self add: Presenter new name: 'banca'.
 	jugadoresPresenter := self add: Presenter new name: 'jugadores'!
 
+dialogoAbrir
+	| dialogo path |
+	dialogo := (FileOpenDialog new)
+				caption: 'Buscar partida';
+				fileTypes: #(#('Partida (*.txt)' '*.txt'));
+				initialDirectory: ImageRelativeFileLocator current basePath , '\Recursos';
+				yourself.
+	path := dialogo showModal.
+	^path!
+
+dialogoGuardar
+	| dialogo path |
+	dialogo := (FileSaveDialog new)
+				caption: 'Grabar partida';
+				fileTypes: #(#('Partida (*.txt)' '*.txt'));
+				initialDirectory: ImageRelativeFileLocator current basePath , '\Recursos';
+				yourself.
+	path := dialogo showModal.
+	^path!
+
 esHumano
 	| jugador |
 	jugador := self model jugadores at: turnoJugador.
@@ -64,100 +84,50 @@ estadoBtnRepartir
 estadoBtnRepartir: anObject
 	estadoBtnRepartir := anObject!
 
+guardarCartas: cartas en: archivo
+	cartas do: 
+			[:each |
+			archivo nextPutAll: each palo.
+			archivo cr.
+			archivo nextPutAll: each nombre displayString.
+			archivo cr.
+			archivo nextPutAll: each valor displayString.
+			archivo cr.
+			archivo nextPutAll: each imagen fileLocator basePath , each imagen identifier.
+			archivo cr.
+			archivo nextPutAll: each imagenVuelta fileLocator basePath , each imagenVuelta identifier.
+			archivo cr.
+			archivo cr]!
+
+guardarJugador: jugador en: archivo
+	archivo nextPutAll: jugador nombre.
+	archivo cr.
+	archivo nextPutAll: jugador estrategia class name displayString.
+	archivo cr.
+	self guardarCartas: jugador cartas en: archivo.
+	archivo cr.
+	archivo nextPutAll: jugador partidasGanadas displayString.
+	archivo cr.
+	archivo nextPutAll: jugador puntos displayString.
+	archivo cr.
+	archivo nextPutAll: jugador imagen fileLocator basePath , jugador imagen identifier.
+	archivo cr.
+	archivo nextPutAll: jugador estado.
+	archivo cr.
+	archivo cr!
+
 guardarPartida
-	"|archivo jugador1 jugador2 jugador3 jugador4 |
-	
-	jugador1 := self model jugador1.
-	jugador2 := self model jugador2.
-	jugador3 := self model jugador3.
-	jugador4 := self model jugador4.
-	
-	archivo := FileStream write: ('partida.txt') text: false.
-	
-
-	archivo nextPutAll: (self model dificultad).
-	archivo cr.
-	archivo nextPutAll:( self model cantidadMazos). 
-	archivo cr.
-	archivo nextPutAll: (self model banca dificultad).
+	| archivo path |
+	path := self dialogoGuardar.
+	path isNil ifTrue: [^self].
+	archivo := FileStream write: path , '.txt' text: false.
+	archivo nextPutAll: self model dificultad.
 	archivo cr.
 	archivo cr.
-	
-	
-	
-	
-
-	(jugador1 estoyDisponible ) ifTrue: [ 
-	archivo nextPutAll:(jugador1 tipo ).
-	archivo cr.
-	archivo nextPutAll:(jugador1 nombre ).
-	archivo cr.
-	archivo nextPutAll: ((jugador1 puntaje ) printString).
-	archivo cr.
-	archivo nextPutAll: ((jugador1 victorias) printString).
-	archivo cr.
-	archivo cr.
-]ifFalse:[archivo nextPutAll:(jugador1 tipo ).
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.].
-
-
-	(jugador2 estoyDisponible ) ifTrue: [ 
-	archivo nextPutAll:(jugador2 tipo ).
-	archivo cr.
-	archivo nextPutAll:(jugador2 nombre ).
-	archivo cr.
-	archivo nextPutAll: ((jugador2 puntaje ) printString).
-	archivo cr.
-	archivo nextPutAll: ((jugador2 victorias) printString).
-	archivo cr.
-	]ifFalse:[archivo nextPutAll:(jugador2 tipo ).
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.].
-
-
-(jugador3 estoyDisponible ) ifTrue: [ 
-	archivo nextPutAll:(jugador3 tipo ).
-	archivo cr.
-	archivo nextPutAll:(jugador3 nombre ).
-	archivo cr.
-	archivo nextPutAll: ((jugador3 puntaje ) printString).
-	archivo cr.
-	archivo nextPutAll: ((jugador3 victorias) printString).
-	archivo cr.
-	archivo cr.
-]ifFalse:[archivo nextPutAll:(jugador3 tipo ).
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.].
-
-
-(jugador4 estoyDisponible ) ifTrue: [ 
-	archivo nextPutAll:(jugador4 tipo ).
-	archivo cr.
-	archivo nextPutAll:(jugador4 nombre ).
-	archivo cr.
-	archivo nextPutAll: ((jugador4 puntaje ) printString).
-	archivo cr.
-	archivo nextPutAll: ((jugador4 victorias) printString).
-	archivo cr.
-	archivo cr.
-]ifFalse:[archivo nextPutAll:(jugador4 tipo ).
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.
-	archivo cr.].
-
-self exit."!
+	self guardarCartas: self model cartas en: archivo.
+	self guardarJugador: self model banca en: archivo.
+	self model jugadores do: [:each | self guardarJugador: each en: archivo].
+	archivo close!
 
 iniciarJuego
 	| ganadores stringGanadores |
@@ -372,11 +342,15 @@ terminarTurno
 !GameShell categoriesFor: #cargarPlayerPresenter:!public! !
 !GameShell categoriesFor: #cargarPlayerPresenter:en:!public! !
 !GameShell categoriesFor: #createComponents!public! !
+!GameShell categoriesFor: #dialogoAbrir!public! !
+!GameShell categoriesFor: #dialogoGuardar!public! !
 !GameShell categoriesFor: #esHumano!public! !
 !GameShell categoriesFor: #estadoBtnContinuar!accessing!public! !
 !GameShell categoriesFor: #estadoBtnContinuar:!accessing!public! !
 !GameShell categoriesFor: #estadoBtnRepartir!accessing!public! !
 !GameShell categoriesFor: #estadoBtnRepartir:!accessing!public! !
+!GameShell categoriesFor: #guardarCartas:en:!public! !
+!GameShell categoriesFor: #guardarJugador:en:!public! !
 !GameShell categoriesFor: #guardarPartida!public! !
 !GameShell categoriesFor: #iniciarJuego!public! !
 !GameShell categoriesFor: #iniciarPartida!public! !
