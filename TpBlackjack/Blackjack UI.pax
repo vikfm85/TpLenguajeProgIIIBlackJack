@@ -52,7 +52,7 @@ Presenter subclass: #PlayerPresenter
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Shell subclass: #GameShell
-	instanceVariableNames: 'bancaPresenter jugadoresPresenter'
+	instanceVariableNames: 'bancaPresenter jugadoresPresenter turnoJugador estadoBtnContinuar estadoBtnRepartir'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -22,11 +22,15 @@ crearMazo
 crearPalo: nombrePalo
 	| cartas |
 	cartas := OrderedCollection new.
-	1 to: 10
+	2 to: 10
 		do: [:cont | cartas add: (Carta
 						new: cont
 						valor: cont
 						palo: nombrePalo)].
+	cartas add: (Carta
+				new: 'A'
+				valor: 11
+				palo: nombrePalo).
 	cartas add: (Carta
 				new: 'J'
 				valor: 10

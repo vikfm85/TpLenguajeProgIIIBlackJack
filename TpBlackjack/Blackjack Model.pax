@@ -25,8 +25,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: (IdentitySet new
-	add: '..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin';
-	add: '..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
+	add: '..\Core\Object Arts\Dolphin\Base\Dolphin';
+	add: '..\Core\Object Arts\Dolphin\ActiveX\Components\Picture\OLE Picture';
 	yourself).
 
 package!

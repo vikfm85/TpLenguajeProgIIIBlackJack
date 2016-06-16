@@ -80,23 +80,28 @@ mezclar: unaColeccionDeCartas
 obtenerGanador
 	self obtenerGanadorSegun: self dificultad!
 
-obtenerGanadorSegun: unaDificultad 
-	unaDificultad = 'facil' 
+obtenerGanadorSegun: unaDificultad
+	unaDificultad = 'Facil'
 		ifTrue: 
 			[self jugadores do: 
-					[:unJugador | 
-					unJugador calcularPuntaje >= self banca calcularPuntaje 
-						ifTrue: [unJugador ganar]
-						ifFalse: [unJugador perder]]].
-	unaDificultad = 'normal' 
-		ifTrue: 
-			[self jugadores do: 
-					[:unJugador | 
-					unJugador calcularPuntaje > self banca calcularPuntaje 
+					[:unJugador |
+					(unJugador estado = 'gano' or: [unJugador estado = 'perdio']) ifTrue: [^self].
+					unJugador calcularPuntaje > self banca calcularPuntaje
 						ifTrue: [unJugador ganar]
 						ifFalse: 
-							[unJugador calcularPuntaje = self banca calcularPuntaje 
-								ifTrue: [unJugador empatar]
+							[unJugador calcularPuntaje = self banca calcularPuntaje
+								ifTrue: [unJugador empatarFacil]
+								ifFalse: [unJugador perder]]]].
+	unaDificultad = 'Normal'
+		ifTrue: 
+			[self jugadores do: 
+					[:unJugador |
+					(unJugador estado = 'gano' or: [unJugador estado = 'perdio']) ifTrue: [^self].
+					unJugador calcularPuntaje > self banca calcularPuntaje
+						ifTrue: [unJugador ganar]
+						ifFalse: 
+							[unJugador calcularPuntaje = self banca calcularPuntaje
+								ifTrue: [unJugador empatarNormal]
 								ifFalse: [unJugador perder]]]]! !
 !Partida categoriesFor: #banca!accessing!public! !
 !Partida categoriesFor: #banca:!accessing!public! !

@@ -17,7 +17,7 @@ calcularPuntaje
 	| total as |
 	total := self cartas inject: 0 into: [:sum :unaCarta | sum + unaCarta valor].
 	as := self cartas detect: [:unaCarta | unaCarta valor = 1] ifNone: [nil].
-	(total > 22 and: [as isNil]) ifTrue: [total := total - 10].
+	(total > 22 and: [as notNil]) ifTrue: [total := total - 10].
 	^total!
 
 cartas
@@ -26,9 +26,12 @@ cartas
 cartas: anObject
 	cartas := anObject!
 
-empatar
-	self estado = 'empatar'.
-	!
+empatarFacil
+	self estado: 'empatar'.
+	partidasGanadas := partidasGanadas + 1!
+
+empatarNormal
+	self estado: 'empatar'!
 
 entregarCarta: unaCarta
 	self estrategia entregarCarta: unaCarta!
@@ -46,8 +49,9 @@ estrategia: anObject
 	estrategia := anObject!
 
 ganar
-	self estado = 'ganar'.
-	puntos := puntos + 400.!
+	self estado: 'gano'.
+	partidasGanadas := partidasGanadas + 1.
+	puntos := puntos + 400!
 
 imagen
 	^imagen!
@@ -77,11 +81,21 @@ partidasGanadas: anObject
 	partidasGanadas := anObject!
 
 perder
-	self estado = 'perdio'.
-	puntos := puntos - 200.!
+	self estado: 'perdio'.
+	puntos := puntos - 200!
+
+perdio
+	| puntajeJugador |
+	puntajeJugador := self calcularPuntaje.
+	^puntajeJugador < 21!
 
 plantarse
 	self estado: 'plantado'.!
+
+puedeJugar
+	| puntajeJugador |
+	puntajeJugador := self calcularPuntaje.
+	^puntajeJugador < 21 and: [(estado = 'plantado') not]!
 
 puntos
 	^puntos!
@@ -90,7 +104,7 @@ puntos: anObject
 	puntos := anObject!
 
 sePlanto
-	^(self estado = 'plantado')!
+	^self estado: 'plantado'!
 
 tomarCartas: unaCantidad de: unaColeccionDeCartas
 	self estrategia
@@ -101,7 +115,8 @@ tomarCartas: unaCantidad de: unaColeccionDeCartas
 !Jugador categoriesFor: #calcularPuntaje!public! !
 !Jugador categoriesFor: #cartas!accessing!public! !
 !Jugador categoriesFor: #cartas:!accessing!public! !
-!Jugador categoriesFor: #empatar!accessing!public! !
+!Jugador categoriesFor: #empatarFacil!accessing!public! !
+!Jugador categoriesFor: #empatarNormal!accessing!public! !
 !Jugador categoriesFor: #entregarCarta:!public! !
 !Jugador categoriesFor: #estado!accessing!public! !
 !Jugador categoriesFor: #estado:!accessing!public! !
@@ -117,7 +132,9 @@ tomarCartas: unaCantidad de: unaColeccionDeCartas
 !Jugador categoriesFor: #partidasGanadas!accessing!public! !
 !Jugador categoriesFor: #partidasGanadas:!accessing!public! !
 !Jugador categoriesFor: #perder!accessing!public! !
+!Jugador categoriesFor: #perdio!public! !
 !Jugador categoriesFor: #plantarse!public! !
+!Jugador categoriesFor: #puedeJugar!public! !
 !Jugador categoriesFor: #puntos!accessing!public! !
 !Jugador categoriesFor: #puntos:!accessing!public! !
 !Jugador categoriesFor: #sePlanto!accessing!public! !

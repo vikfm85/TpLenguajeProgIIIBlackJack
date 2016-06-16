@@ -24,7 +24,7 @@ jugar: unJugador con: unaPartida
 						ifFalse: 
 							[| random |
 							random := Random new.
-							random next < 0.5
+							(random peek > 0.5)
 								ifTrue: [self pedirUnaCartaA: unaPartida para: unJugador]
 								ifFalse: [unJugador plantarse]]]]! !
 !CpuPrudente categoriesFor: #jugar:con:!public! !
