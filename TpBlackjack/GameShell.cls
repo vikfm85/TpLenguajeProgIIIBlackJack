@@ -164,6 +164,12 @@ iniciarJuego
 	self banca jugarCon: self."!
 
 iniciarPartida
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
 	self model jugadores do: [:each | each estado: 'jugando'].
 	self repartir.
 	self estadoBtnContinuar: true.
@@ -176,6 +182,8 @@ iniciarTurno
 	jugadorPresenter := jugadoresPresenter subPresenters at: turnoJugador.
 	jugadorPresenter model jugarCon: self model.
 	self refrescarDatosPlayerPresenter: jugadorPresenter.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
 	MessageBox notify: 'Termino de jugar la mano'
 		caption: 'El jugador ' , (self model jugadores at: turnoJugador) nombre.
 	turnoJugador == self model jugadores size
@@ -199,6 +207,9 @@ jugar
 
 onViewOpened
 	super onViewOpened.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
 	self estadoBtnRepartir: true.
 	self estadoBtnContinuar: false.
 	self cargarJugadores: self model jugadores.
@@ -273,6 +284,9 @@ repartir
 	"Le raparte 2 cartas a cada jugador"
 
 	| banca |
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
+	Sound beep: 1000 duration: 100.
 	self model jugadores do: [:each | each cartas removeAll].
 	self model banca cartas removeAll.
 	self model jugadores do: [:each | each estado: 'jugando'].
