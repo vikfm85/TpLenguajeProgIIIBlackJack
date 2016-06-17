@@ -16,8 +16,6 @@ banca
 banca: anObject
 	banca := anObject!
 
-cargarPartida!
-
 cartas
 	^cartas!
 
@@ -32,10 +30,6 @@ dificultad: anObject
 
 entregarCartas: unaCantidad a: unJugador
 	unJugador tomarCartas: unaCantidad de: self cartas!
-
-finalizar!
-
-guardarPartida!
 
 iniciarPartida
 	| jugadoresEnJuego |
@@ -105,14 +99,11 @@ obtenerGanadorSegun: unaDificultad
 								ifFalse: [unJugador perder]]]]! !
 !Partida categoriesFor: #banca!accessing!public! !
 !Partida categoriesFor: #banca:!accessing!public! !
-!Partida categoriesFor: #cargarPartida!public! !
 !Partida categoriesFor: #cartas!accessing!public! !
 !Partida categoriesFor: #cartas:!accessing!public! !
 !Partida categoriesFor: #dificultad!accessing!public! !
 !Partida categoriesFor: #dificultad:!accessing!public! !
 !Partida categoriesFor: #entregarCartas:a:!public! !
-!Partida categoriesFor: #finalizar!public! !
-!Partida categoriesFor: #guardarPartida!public! !
 !Partida categoriesFor: #iniciarPartida!public! !
 !Partida categoriesFor: #initialize!public! !
 !Partida categoriesFor: #jugadores!accessing!public! !
