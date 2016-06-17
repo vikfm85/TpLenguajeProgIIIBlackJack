@@ -10,6 +10,62 @@ NewGameShell comment: ''!
 !NewGameShell categoriesForClass!MVP-Presenters! !
 !NewGameShell methodsFor!
 
+cargarCarta: archivo
+	| carta |
+	carta := Carta new.
+	carta palo: archivo nextLine.
+	carta nombre: archivo nextLine.
+	carta valor: archivo nextLine asNumber.
+	carta imagen: (self cargarImagen: archivo nextLine).
+	carta imagenVuelta: (self cargarImagen: archivo nextLine).
+	^carta!
+
+cargarImagen: path
+	^OLEPicture fromFile: path!
+
+cargarJugador: archivo
+	| jugador cantidadCartas |
+	jugador := Jugador new.
+	jugador nombre: archivo nextLine.
+	jugador estrategia: (Smalltalk at: archivo nextLine asSymbol) new.
+	cantidadCartas := archivo nextLine asNumber.
+	cantidadCartas timesRepeat: [jugador cartas add: (self cargarCarta: archivo)].
+	jugador partidasGanadas: archivo nextLine asNumber.
+	jugador puntos: archivo nextLine asNumber.
+	jugador imagen: (self cargarImagen: archivo nextLine).
+	jugador estado: archivo nextLine.
+	^jugador!
+
+cargarPartida
+	| path archivo partida cantidadCartas cantidadJugadores game |
+	path := self dialogoAbrir.
+	path isNil ifTrue: [^self].
+	archivo := FileStream read: path.
+	partida := Partida new.
+	partida dificultad: archivo nextLine.
+	cantidadCartas := archivo nextLine asNumber.
+	cantidadCartas timesRepeat: [partida cartas add: (self cargarCarta: archivo)].
+	partida banca: (self cargarJugador: archivo).
+	cantidadJugadores := archivo nextLine asNumber.
+	cantidadJugadores timesRepeat: [partida jugadores add: (self cargarJugador: archivo)].
+	archivo close.
+	game := GameShell showOn: partida.
+	"Seria mejor poner un metodo publico en GameShell que limpie todas las cartas y llamar a ese de todos lados"
+	game refrescarCartasDe: game bancaPresenter subPresenters first.
+	game jugadoresPresenter subPresenters do: [:each | game refrescarCartasDe: each].
+	game turnoJugador: archivo nextLine asNumber.
+	self view close!
+
+dialogoAbrir
+	| dialogo path |
+	dialogo := (FileOpenDialog new)
+				caption: 'Buscar partida';
+				fileTypes: #(#('Partida (*.txt)' '*.txt'));
+				initialDirectory: ImageRelativeFileLocator current basePath , '\Recursos';
+				yourself.
+	path := dialogo showModal.
+	^path!
+
 nuevaPartida
 	| dificultad cantJugadores cantMazos partida |
 	dificultad := TextDialog
@@ -26,6 +82,11 @@ nuevaPartida
 	partida jugadores isEmpty ifTrue: [^self].
 	GameShell showOn: partida.
 	self view close! !
+!NewGameShell categoriesFor: #cargarCarta:!public! !
+!NewGameShell categoriesFor: #cargarImagen:!public! !
+!NewGameShell categoriesFor: #cargarJugador:!public! !
+!NewGameShell categoriesFor: #cargarPartida!public! !
+!NewGameShell categoriesFor: #dialogoAbrir!public! !
 !NewGameShell categoriesFor: #nuevaPartida!public! !
 
 !NewGameShell class methodsFor!

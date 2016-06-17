@@ -16,6 +16,12 @@ agregarCarta: carta en: cartaPresenter
 agregarCartaVuelta: carta en: cartaPresenter
 	^ImagePresenter createIn: cartaPresenter on: carta imagenVuelta!
 
+bancaPresenter
+	^bancaPresenter!
+
+bancaPresenter: anObject
+	bancaPresenter := anObject!
+
 cargarBanca: laBanca
 	self cargarPlayerPresenter: laBanca en: bancaPresenter.
 	"La banca no tiene puntos ni partidas ganadas"
@@ -46,16 +52,6 @@ createComponents
 	super createComponents.
 	bancaPresenter := self add: Presenter new name: 'banca'.
 	jugadoresPresenter := self add: Presenter new name: 'jugadores'!
-
-dialogoAbrir
-	| dialogo path |
-	dialogo := (FileOpenDialog new)
-				caption: 'Buscar partida';
-				fileTypes: #(#('Partida (*.txt)' '*.txt'));
-				initialDirectory: ImageRelativeFileLocator current basePath , '\Recursos';
-				yourself.
-	path := dialogo showModal.
-	^path!
 
 dialogoGuardar
 	| dialogo path |
@@ -96,7 +92,6 @@ guardarCartas: cartas en: archivo
 			archivo nextPutAll: each imagen fileLocator basePath , each imagen identifier.
 			archivo cr.
 			archivo nextPutAll: each imagenVuelta fileLocator basePath , each imagenVuelta identifier.
-			archivo cr.
 			archivo cr]!
 
 guardarJugador: jugador en: archivo
@@ -104,8 +99,9 @@ guardarJugador: jugador en: archivo
 	archivo cr.
 	archivo nextPutAll: jugador estrategia class name displayString.
 	archivo cr.
-	self guardarCartas: jugador cartas en: archivo.
+	archivo nextPutAll: jugador cartas size displayString.
 	archivo cr.
+	self guardarCartas: jugador cartas en: archivo.
 	archivo nextPutAll: jugador partidasGanadas displayString.
 	archivo cr.
 	archivo nextPutAll: jugador puntos displayString.
@@ -113,7 +109,6 @@ guardarJugador: jugador en: archivo
 	archivo nextPutAll: jugador imagen fileLocator basePath , jugador imagen identifier.
 	archivo cr.
 	archivo nextPutAll: jugador estado.
-	archivo cr.
 	archivo cr!
 
 guardarPartida
@@ -123,10 +118,15 @@ guardarPartida
 	archivo := FileStream write: path , '.txt' text: false.
 	archivo nextPutAll: self model dificultad.
 	archivo cr.
+	archivo nextPutAll: self model cartas size displayString.
 	archivo cr.
 	self guardarCartas: self model cartas en: archivo.
 	self guardarJugador: self model banca en: archivo.
+	archivo nextPutAll: self model jugadores size displayString.
+	archivo cr.
 	self model jugadores do: [:each | self guardarJugador: each en: archivo].
+	archivo nextPutAll: turnoJugador displayString.
+	archivo cr.
 	archivo close!
 
 iniciarJuego
@@ -192,6 +192,12 @@ iniciarTurno
 			self terminarTurno.
 			^self].
 	turnoJugador < self model jugadores size ifTrue: [turnoJugador := turnoJugador + 1]!
+
+jugadoresPresenter
+	^jugadoresPresenter!
+
+jugadoresPresenter: anObject
+	jugadoresPresenter := anObject!
 
 jugadorResultado
 	| jugador |
@@ -348,15 +354,22 @@ terminarTurno
 	stringGanadores == ''
 		ifFalse: 
 			[MessageBox notify: stringGanadores caption: 'Felicitaciones'.
-			self estadoBtnRepartir: false]! !
+			self estadoBtnRepartir: false]!
+
+turnoJugador
+	^turnoJugador!
+
+turnoJugador: anObject
+	turnoJugador := anObject! !
 !GameShell categoriesFor: #agregarCarta:en:!public! !
 !GameShell categoriesFor: #agregarCartaVuelta:en:!public! !
+!GameShell categoriesFor: #bancaPresenter!accessing!private! !
+!GameShell categoriesFor: #bancaPresenter:!accessing!private! !
 !GameShell categoriesFor: #cargarBanca:!public! !
 !GameShell categoriesFor: #cargarJugadores:!public! !
 !GameShell categoriesFor: #cargarPlayerPresenter:!public! !
 !GameShell categoriesFor: #cargarPlayerPresenter:en:!public! !
 !GameShell categoriesFor: #createComponents!public! !
-!GameShell categoriesFor: #dialogoAbrir!public! !
 !GameShell categoriesFor: #dialogoGuardar!public! !
 !GameShell categoriesFor: #esHumano!public! !
 !GameShell categoriesFor: #estadoBtnContinuar!accessing!public! !
@@ -369,6 +382,8 @@ terminarTurno
 !GameShell categoriesFor: #iniciarJuego!public! !
 !GameShell categoriesFor: #iniciarPartida!public! !
 !GameShell categoriesFor: #iniciarTurno!public! !
+!GameShell categoriesFor: #jugadoresPresenter!accessing!private! !
+!GameShell categoriesFor: #jugadoresPresenter:!accessing!private! !
 !GameShell categoriesFor: #jugadorResultado!public! !
 !GameShell categoriesFor: #jugar!public! !
 !GameShell categoriesFor: #onViewOpened!public! !
@@ -381,6 +396,8 @@ terminarTurno
 !GameShell categoriesFor: #seguirJugando!public! !
 !GameShell categoriesFor: #sePuedeJugar!public! !
 !GameShell categoriesFor: #terminarTurno!public! !
+!GameShell categoriesFor: #turnoJugador!accessing!private! !
+!GameShell categoriesFor: #turnoJugador:!accessing!private! !
 
 !GameShell class methodsFor!
 
